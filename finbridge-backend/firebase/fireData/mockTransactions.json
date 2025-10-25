@@ -1,0 +1,90 @@
+{
+  "default": {
+    "balance": 1320.45,
+    "currency": "USD",
+    "monthSummary": {
+      "income": 2100,
+      "expenses": 1240,
+      "savings": 560
+    },
+    "transactions": [
+      { "date": "2025-10-25", "amount": -12.75, "category": "Food", "note": "Lunch - Subway" },
+      { "date": "2025-10-24", "amount": -60.00, "category": "Utilities", "note": "Electric bill" },
+      { "date": "2025-10-23", "amount": -35.20, "category": "Transportation", "note": "Uber rides" },
+      { "date": "2025-10-22", "amount": 200.00, "category": "Income", "note": "Side freelance gig" },
+      { "date": "2025-10-20", "amount": -20.10, "category": "Food", "note": "Dinner at Chipotle" },
+      { "date": "2025-10-18", "amount": -150.00, "category": "Rent", "note": "Monthly room rent" },
+      { "date": "2025-10-15", "amount": -18.75, "category": "Entertainment", "note": "Netflix + Spotify" },
+      { "date": "2025-10-10", "amount": 1900.00, "category": "Income", "note": "Main salary deposit" }
+    ]
+  },
+  "aziz": {
+    "balance": 980.85,
+    "currency": "USD",
+    "monthSummary": {
+      "income": 1600,
+      "expenses": 950,
+      "savings": 250
+    },
+    "transactions": [
+      { "date": "2025-10-25", "amount": -14.25, "category": "Food", "note": "Uzbek cafe dinner" },
+      { "date": "2025-10-23", "amount": -25.10, "category": "Groceries", "note": "Publix groceries" },
+      { "date": "2025-10-22", "amount": -12.00, "category": "Transportation", "note": "Bus card refill" },
+      { "date": "2025-10-21", "amount": 200.00, "category": "Income", "note": "Tutoring pay" },
+      { "date": "2025-10-18", "amount": -60.00, "category": "Education", "note": "Online course fee" },
+      { "date": "2025-10-15", "amount": -90.50, "category": "Utilities", "note": "Wi-Fi + electricity" },
+      { "date": "2025-10-11", "amount": 1250.00, "category": "Income", "note": "Main job paycheck" }
+    ]
+  },
+  "sofia": {
+    "balance": 2100.30,
+    "currency": "EUR",
+    "monthSummary": {
+      "income": 3100,
+      "expenses": 1000,
+      "savings": 1200
+    },
+    "transactions": [
+      { "date": "2025-10-25", "amount": -32.50, "category": "Food", "note": "Tapas restaurant" },
+      { "date": "2025-10-23", "amount": -75.00, "category": "Transportation", "note": "Train pass renewal" },
+      { "date": "2025-10-22", "amount": 300.00, "category": "Income", "note": "Freelance translation" },
+      { "date": "2025-10-20", "amount": -40.00, "category": "Leisure", "note": "Movie night" },
+      { "date": "2025-10-17", "amount": -150.00, "category": "Rent", "note": "Shared apartment" },
+      { "date": "2025-10-14", "amount": -200.00, "category": "Shopping", "note": "New shoes" },
+      { "date": "2025-10-10", "amount": 2800.00, "category": "Income", "note": "Monthly salary" }
+    ]
+  },
+  "rahul": {
+    "balance": 67000.00,
+    "currency": "INR",
+    "monthSummary": {
+      "income": 95000,
+      "expenses": 42000,
+      "savings": 25000
+    },
+    "transactions": [
+      { "date": "2025-10-25", "amount": -300.00, "category": "Food", "note": "Lunch with coworkers" },
+      { "date": "2025-10-23", "amount": -2500.00, "category": "Transport", "note": "Monthly metro pass" },
+      { "date": "2025-10-22", "amount": 15000.00, "category": "Income", "note": "Freelance web project" },
+      { "date": "2025-10-20", "amount": -5000.00, "category": "Rent", "note": "PG room rent" },
+      { "date": "2025-10-18", "amount": -700.00, "category": "Shopping", "note": "New kurta for Diwali" },
+      { "date": "2025-10-12", "amount": 80000.00, "category": "Income", "note": "Software engineer salary" }
+    ]
+  },
+  "mei": {
+    "balance": 8250.00,
+    "currency": "CNY",
+    "monthSummary": {
+      "income": 12000,
+      "expenses": 4000,
+      "savings": 3000
+    },
+    "transactions": [
+      { "date": "2025-10-25", "amount": -50.00, "category": "Food", "note": "Noodles & milk tea" },
+      { "date": "2025-10-23", "amount": -300.00, "category": "Shopping", "note": "Online sale - clothes" },
+      { "date": "2025-10-22", "amount": -200.00, "category": "Transportation", "note": "Metro top-up" },
+      { "date": "2025-10-20", "amount": 500.00, "category": "Income", "note": "Side art commission" },
+      { "date": "2025-10-10", "amount": 11500.00, "category": "Income", "note": "Full-time salary" }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+    "defalt":{
+        "balance":1200,
+        "transactions":[
+            {"date": "2025-10-20", "amount": -30, "category": "Free"},
+            {"date": "2025-10-21","amount":500, "category": "Income"}
+        ]
+    }
+
+
+
+}
