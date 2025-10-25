@@ -1,37 +1,48 @@
 {
-    "brand": "FinBridge",
-    "tagline": "Herramientas de dinero en tu idioma.",
-    "cta": {
-    "primary": "Comenzar",
-    "secondary": "Saber más"
-    },
-    "switcher": {
-    "label": "Idioma",
-    "en": "English",
-    "es": "Español"
-    },
     "hero": {
-    "title": "Entiende tu dinero. Sin confusión.",
-    "subtitle": "Un panel simple para quienes son nuevos en el sistema bancario de EE. UU. Traduce toda la app con un solo clic."
+        "title": "Entiende tus finanzas sin confusión.",
+        "subtitle": "Un panel sencillo para recién llegados al sistema bancario de EE. UU. Traduce tus finanzas con un clic"
     },
-    "stats": {
-    "trusted": "Equipos que confían",
-    "docs": "Documentos traducidos",
-    "minutes": "Tiempo promedio por traducción"
-    },
-    "pricing": {
-    "title": "Precio simple",
-    "free": "Gratis",
-    "free_desc": "Prueba el traductor y el panel.",
-    "pro": "Pro",
-    "pro_desc": "Traducciones de documentos ilimitadas y soporte prioritario.",
-    "usd_note": "Todos los precios en USD (dólares estadounidenses)."
-    },
-    "footer": {
-    "rights": "Todos los derechos reservados."
-    },
+    "switcher": { "label": "Idioma", "en": "English", "es": "Español" },
+    "cta": { "secondary": "Aprende más" },
     "home": {
-    "choose_language": "Elige tu idioma",
-    "go_dashboard": "Ir al panel"
+        "choose_language": "Elige tu idioma",
+        "go_dashboard": "Ir al tablero",
+        "learn_heading": "Aprende más sobre",
+        "features_heading": "Características simples",
+        "cta_text": "Traducir y entender tus finanzas no tiene por qué ser difícil.",
+        "cta_button": "¡Comenzar!",
+        "articles": [
+            {
+                "title": "Por qué el idioma afecta tus decisiones financieras",
+                "blurb": "La comprensión cambia el comportamiento. Observa cómo la claridad del lenguaje mejora los resultados.",
+                "href": "https://www.consumerfinance.gov/about-us/blog/immigrants-facing-unique-financial-challenges/"
+            },
+            {
+                "title": "Cómo empezar en el sistema bancario de EE. UU.",
+                "blurb": "Cuenta corriente, historial crediticio y tarifas: lo esencial explicado con claridad.",
+                "href": "https://www.languageline.com/blog/empowering-unbanked-non-english-speakers"
+            },
+            {
+                "title": "Evita errores comunes al firmar documentos",
+                "blurb": "Consejos simples para revisar contratos y estados de cuenta con confianza.",
+                "href": "https://www.ftc.gov/consumer-advice/money-credit"
+            }
+        ],
+        "features": [
+            { "title": "Traducción con un clic", "desc": "Traduce documentos y pantallas rápidamente sin perder el formato." },
+            { "title": "Guías claras", "desc": "Explicaciones simples de términos bancarios y tarifas comunes." },
+            { "title": "Soporte en tu idioma", "desc": "Recibe ayuda y consejos prácticos en el idioma que dominas." }
+        ],
+        "waitlist": {
+            "title": "Cómo empezar",
+            "description": "Déjanos tu correo para recibir una guía rápida y avisos del lanzamiento.",
+            "placeholder_email": "Tu correo",
+            "sending": "Enviando...",
+            "join_list": "Unirme a la lista",
+            "success": "¡Gracias! Te avisaremos cuando lancemos.",
+            "error": "Ocurrió un error. Inténtalo de nuevo."
+        },
+        "dashboard": { "title": "Tablero", "welcome": "¡Bienvenido al tablero!" }
     }
 }

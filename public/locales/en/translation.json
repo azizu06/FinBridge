@@ -1,37 +1,48 @@
 {
-    "brand": "FinBridge",
-    "tagline": "Financial advice that speaks to You",
-    "cta": {
-    "primary": "Get started",
-    "secondary": "Learn more"
-    },
-    "switcher": {
-    "label": "Language",
-    "en": "English",
-    "es": "Español"
-    },
     "hero": {
-    "title": "Understand Your Finances With No Confusion.",
-    "subtitle": "A Simple Dashboard For Newcomers Coming To The U.S. banking system. Translate Your Finances With One Click"
+        "title": "Understand Your Finances With No Confusion.",
+        "subtitle": "A Simple Dashboard For Newcomers Coming To The U.S. banking system. Translate Your Finances With One Click"
     },
-    "stats": {
-    "trusted": "Trusted By Teams Across The Nation",
-    "docs": "Documents Translated",
-    "minutes": "Avg. time to Translate"
-    },
-    "pricing": {
-    "title": "Simple Pricing",
-    "free": "Free",
-    "free_desc": "Try the translator and dashboard",
-    "pro": "Pro",
-    "pro_desc": "Unlimited document translations and priority support",
-    "usd_note": "All prices In USD."
-    },
-    "footer": {
-    "rights": "All Rights Reserved"
-    },
+    "switcher": { "label": "Language", "en": "English", "es": "Español" },
+    "cta": { "secondary": "Learn more" },
     "home": {
-    "choose_language": "Choose your language",
-    "go_dashboard": "Go to dashboard"
+        "choose_language": "Choose your language",
+        "go_dashboard": "Go to dashboard",
+        "learn_heading": "Learn more about",
+        "features_heading": "Simple features",
+        "cta_text": "Translating and understanding your finances doesn’t have to be hard.",
+        "cta_button": "Get started!",
+        "articles": [
+            {
+                "title": "Why language impacts your financial decisions",
+                "blurb": "Understanding changes behavior. See how language clarity improves outcomes.",
+                "href": "https://www.consumerfinance.gov/about-us/blog/immigrants-facing-unique-financial-challenges/"
+            },
+            {
+                "title": "Getting started with the U.S. banking system",
+                "blurb": "Checking, credit history, and fees—essentials explained clearly.",
+                "href": "https://www.languageline.com/blog/empowering-unbanked-non-english-speakers"
+            },
+            {
+                "title": "Avoid common mistakes when signing documents",
+                "blurb": "Simple tips to review contracts and statements with confidence.",
+                "href": "https://www.ftc.gov/consumer-advice/money-credit"
+            }
+        ],
+        "features": [
+            { "title": "One-click translation", "desc": "Translate documents and screens fast without losing layout!" },
+            { "title": "Clear guides", "desc": "Simple explanations of banking terms and common fees." },
+            { "title": "Support in your language", "desc": "Get help and practical tips in the language you’re comfortable with." }
+        ],
+        "waitlist": {
+            "title": "How to get started",
+            "description": "Drop your email to get a quick-start guide and launch updates.",
+            "placeholder_email": "Your email",
+            "sending": "Sending...",
+            "join_list": "Join the list",
+            "success": "Thanks! We’ll notify you when we launch.",
+            "error": "Something went wrong. Please try again."
+        },
+        "dashboard": { "title": "Dashboard", "welcome": "Welcome to the dashboard!" }
     }
 }
