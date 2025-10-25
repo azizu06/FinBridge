@@ -16,16 +16,19 @@
             {
                 "title": "Why language impacts your financial decisions",
                 "blurb": "Understanding changes behavior. See how language clarity improves outcomes.",
+                "img": "/assets/article-1.jpg",
                 "href": "https://www.consumerfinance.gov/about-us/blog/immigrants-facing-unique-financial-challenges/"
             },
             {
                 "title": "Getting started with the U.S. banking system",
                 "blurb": "Checking, credit history, and fees—essentials explained clearly.",
+                "img": "/assets/article-2.jpg",
                 "href": "https://www.languageline.com/blog/empowering-unbanked-non-english-speakers"
             },
             {
                 "title": "Avoid common mistakes when signing documents",
                 "blurb": "Simple tips to review contracts and statements with confidence.",
+                "img": "/assets/article-3.jpg",
                 "href": "https://www.ftc.gov/consumer-advice/money-credit"
             }
         ],
