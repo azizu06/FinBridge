@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 function Header() {
-    const { t, i18n } = useTranslation();
+    const { t, i18n } = useTranslation('header');
 
     // Function to change language
     const changeLanguage = (lng) => {
