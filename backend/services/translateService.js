@@ -9,7 +9,7 @@ export async function translateText(text, targetLang) {
         }
     );
 
-    const translatedText = response.data.data.translations[0].translateText;
+    const translatedText = response.data.data.translations[0].translatedText;
     return translatedText;
     } catch(error) {
         console.error("Translation API error::", error.response?.data || error.message);
