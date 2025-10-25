@@ -1,0 +1,37 @@
+{
+    "brand": "FinBridge",
+    "tagline": "Herramientas de dinero en tu idioma.",
+    "cta": {
+    "primary": "Comenzar",
+    "secondary": "Saber más"
+    },
+    "switcher": {
+    "label": "Idioma",
+    "en": "English",
+    "es": "Español"
+    },
+    "hero": {
+    "title": "Entiende tu dinero. Sin confusión.",
+    "subtitle": "Un panel simple para quienes son nuevos en el sistema bancario de EE. UU. Traduce toda la app con un solo clic."
+    },
+    "stats": {
+    "trusted": "Equipos que confían",
+    "docs": "Documentos traducidos",
+    "minutes": "Tiempo promedio por traducción"
+    },
+    "pricing": {
+    "title": "Precio simple",
+    "free": "Gratis",
+    "free_desc": "Prueba el traductor y el panel.",
+    "pro": "Pro",
+    "pro_desc": "Traducciones de documentos ilimitadas y soporte prioritario.",
+    "usd_note": "Todos los precios en USD (dólares estadounidenses)."
+    },
+    "footer": {
+    "rights": "Todos los derechos reservados."
+    },
+    "home": {
+    "choose_language": "Elige tu idioma",
+    "go_dashboard": "Ir al panel"
+    }
+}
