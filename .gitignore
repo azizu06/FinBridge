@@ -143,5 +143,4 @@ vite.config.ts.timestamp-*
 
 
 # FireBase Key
-firebase/*.json
-firebase/finbridge-b7d76-firebase-adminsdk-fbsvc-a01fcc31a4.json
+backend/firebase/*.json
