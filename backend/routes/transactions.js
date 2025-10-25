@@ -1,7 +1,18 @@
 import express from "express";
-import mockData from "../data/mockTransactions.json" assert {type: "json"};
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const router = express.Router();
+
+// Get current file's directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Read and parse JSON file
+const mockData = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "../data/mockTransactions.json"), "utf8")
+);
 
 router.get("/:id", (req, res) => {
     const userData = mockData[req.params.id] || mockData["default"];
