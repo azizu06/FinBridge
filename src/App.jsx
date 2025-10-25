@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import Header from './Header';
 import './App.css';
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
   return (
     <>
       <div>
-
+        <Header />
       </div>
     </>
   )
