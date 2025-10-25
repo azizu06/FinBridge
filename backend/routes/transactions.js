@@ -5,11 +5,9 @@ import { fileURLToPath } from "url";
 
 const router = express.Router();
 
-// Get current file's directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Read and parse JSON file
 const mockData = JSON.parse(
     fs.readFileSync(path.join(__dirname, "../data/mockTransactions.json"), "utf8")
 );
