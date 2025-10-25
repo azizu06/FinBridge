@@ -138,5 +138,10 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-#env file
+# env file
 .env
+
+
+# FireBase Key
+firebase/*.json
+firebase/finbridge-b7d76-firebase-adminsdk-fbsvc-a01fcc31a4.json
