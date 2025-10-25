@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-dotenv.config();
+// Load environment variables before importing any modules that depend on them
+import "dotenv/config";
 import adviceRoutes from "./routes/advice.js";
 import userRoutes from "./routes/user.js";
 import transactionRoutes from "./routes/transactions.js";
