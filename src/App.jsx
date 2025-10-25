@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import Header from './Header';
 import './App.css';
+import Header from './Header.jsx';
 
 function App() {
 
