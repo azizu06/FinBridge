@@ -1,11 +1,11 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+dotenv.config();
 import adviceRoutes from "./routes/advice.js";
 import userRoutes from "./routes/user.js";
 import transactionRoutes from "./routes/transactions.js";
-
-dotenv.config();
+import translateRoutes from "./routes/translate.js";
 
 const app = express();
 app.use(cors());
@@ -14,6 +14,7 @@ app.use(express.json());
 app.use("/api/advice", adviceRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/transactions", transactionRoutes);
+app.use("/api/translate", translateRoutes);
 
 app.get("/", (req, res) => {
     res.send("FinBridge backend is running.");
@@ -21,4 +22,4 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server running on port ${Port}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
