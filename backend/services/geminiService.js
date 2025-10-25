@@ -9,7 +9,22 @@ export async function getFinancialAdvice({message, language, culture}) {
     const prompt = `You are FinBridge, a kind, multicultural financial assistant. User culture: ${culture} User language ${language} Use simple,respectful language. Prefer culturally relevant examples. If helpful, include examples like: ${cultureData.example ?? "savings for family events"}. Preferred term for "savings": ${cultureData.saving_term ?? "savings"}.
     Question: ${message}`;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-pro"});
-    const result = await model.generateContent(prompt);
-    return result.response.text();
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+
+    try {
+    const result = await model.generateContent ({
+        contents: [
+            { 
+                role: "user", 
+                parts: [{ text: prompt }] 
+            }
+        ]
+    });
+
+    const text = result.response.text();
+    return text || "Sorry, I couldn't generate advice right now";
+    } catch (error) {
+        console.error("Gemini API error:", error);
+        throw new Error("Error generating advice");
+    }
 }
