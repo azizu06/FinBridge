@@ -1,0 +1,51 @@
+{
+    "hero": {
+        "title": "Entiende tus finanzas sin confusión.",
+        "subtitle": "Un panel sencillo para recién llegados al sistema bancario de EE. UU. Traduce tus finanzas con un clic"
+    },
+    "switcher": { "label": "Idioma", "en": "English", "es": "Español" },
+    "cta": { "secondary": "Aprende más" },
+    "home": {
+        "choose_language": "Elige tu idioma",
+        "go_dashboard": "Ir al tablero",
+        "learn_heading": "Aprende más sobre",
+        "features_heading": "Características simples",
+        "cta_text": "Traducir y entender tus finanzas no tiene por qué ser difícil.",
+        "cta_button": "¡Comenzar!",
+        "articles": [
+            {
+                "title": "Por qué el idioma afecta tus decisiones financieras",
+                    "blurb": "La comprensión cambia el comportamiento. Observa cómo la claridad del lenguaje mejora los resultados.",
+                "img": "/assets/article-1.jpg",
+                "href": "https://www.consumerfinance.gov/about-us/blog/immigrants-facing-unique-financial-challenges/"
+            },
+            {
+                "title": "Cómo empezar en el sistema bancario de EE. UU.",
+                    "blurb": "Cuenta corriente, historial crediticio y tarifas: lo esencial explicado con claridad.",
+                "img": "/assets/article-2.jpg",
+                "href": "https://www.languageline.com/blog/empowering-unbanked-non-english-speakers"
+            },
+            {
+                "title": "Evita errores comunes al firmar documentos",
+                    "blurb": "Consejos simples para revisar contratos y estados de cuenta con confianza.",
+                "img": "/assets/article-3.jpg",
+                "href": "https://www.ftc.gov/consumer-advice/money-credit"
+            }
+        ],
+        "features": [
+            { "title": "Traducción con un clic", "desc": "Traduce documentos y pantallas rápidamente sin perder el formato." },
+            { "title": "Guías claras", "desc": "Explicaciones simples de términos bancarios y tarifas comunes." },
+            { "title": "Soporte en tu idioma", "desc": "Recibe ayuda y consejos prácticos en el idioma que dominas." }
+        ],
+        "waitlist": {
+            "title": "Cómo empezar",
+            "description": "Déjanos tu correo para recibir una guía rápida y avisos del lanzamiento.",
+            "placeholder_email": "Tu correo",
+            "sending": "Enviando...",
+            "join_list": "Unirme a la lista",
+            "success": "¡Gracias! Te avisaremos cuando lancemos.",
+            "error": "Ocurrió un error. Inténtalo de nuevo."
+        },
+        "dashboard": { "title": "Tablero", "welcome": "¡Bienvenido al tablero!" }
+    }
+}
