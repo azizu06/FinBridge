@@ -1,9 +1,12 @@
 import { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function Chatbot() {
+    const {t} = useTranslation('chatbot');
     const [messages, setMessages] = useState([
-        { role: 'model', text: 'Hello! How can I assist you today?' }
+        { role: 'model', text: t('initialMessage') }
     ]);
+
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const listRef = useRef(null);
@@ -71,7 +74,7 @@ function Chatbot() {
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={onKeyDown}
                         className="border rounded p-2 w-full"
-                        placeholder="Type your message..."
+                        placeholder={t('placeholder')}
                     />
                 </div>
             </div>

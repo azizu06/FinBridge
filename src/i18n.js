@@ -7,7 +7,7 @@ i18n.use(LanguageDetector).use(Backend).use(initReactI18next).init({
     debug: true,
     fallbackLng: 'en',
     supportedLngs: ['en', 'es'],
-    ns: ['translation', 'about', 'header', 'home', 'dashboard'],
+    ns: ['translation', 'about', 'header', 'home', 'dashboard', 'chatbot'],
     defaultNS: 'translation',
     backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json'
