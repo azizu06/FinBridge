@@ -6,20 +6,31 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
     try {
-        const { message, language, culture } = req.body;
+        const { message, language, culture, userId } = req.body;
         const userMessageInEnglish = await translateText(message, "en");
 
-        const englishReplay = await getFinancialAdvice({
+        const uiAdvice = await getFinancialAdvice({
+            userId: userId || "default",
             message: userMessageInEnglish,
             language: "English",
-            culture
+            culture,
         });
 
-        const finalReply = await translateText(englishReplay, language);
+        let finalReply = uiAdvice.summary;
+        try {
+            finalReply = await translateText(uiAdvice.summary, language);
+        } catch (translateError) {
+            console.warn("Advice translation fallback:", translateError);
+        }
 
-        res.json({ reply: finalReply });
-    }
-    catch(error) {
+        res.json({
+            reply: finalReply,
+            ui: {
+                ...uiAdvice,
+                summary: finalReply,
+            },
+        });
+    } catch (error) {
         console.error("Advice route error:", error);
         res.status(500).json({ error: "Error generating advice" });
     }
