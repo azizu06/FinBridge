@@ -26,4 +26,24 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
+
+  {
+    files: ['backend/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+        process: 'readonly',
+      },
+      env: {
+        node: true,
+        es2021: true,
+      },
+    },
+    rules: {
+      'no-undef': 'error',
+      'no-unused-vars': 'warn',
+    },
+  },
 ])
