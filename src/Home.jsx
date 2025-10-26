@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useLocale } from "./context/LocaleContext.jsx";
+import { LANGUAGE_OPTIONS } from "./config/options.js";
 
 export default function Home() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
+    const { language, setLanguage } = useLocale();
     const navigate = useNavigate();
 
     
@@ -11,14 +13,6 @@ export default function Home() {
     const a1 = "/assets/article-2.jpg";
     const a2 = "/assets/article-3.jpg";
     const a3 = "/assets/hero-family.jpg";
-
-    const initial = i18n.language?.startsWith("es") ? "es" : "en";
-    const [lang, setLang] = useState(initial);
-
-    useEffect(() => {
-        const current = i18n.language?.startsWith("es") ? "es" : "en";
-        if (current !== lang) i18n.changeLanguage(lang);
-    }, [lang, i18n]);
 
     const translatedArticles = t("home.articles", { returnObjects: true });
     const articles = Array.isArray(translatedArticles) ? translatedArticles : [];
