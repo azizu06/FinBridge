@@ -1,4 +1,25 @@
 {
+    "title": "Asistente FinBridge",
+    "subtitle": "Recibe orientación financiera con sensibilidad cultural.",
     "initialMessage": "¡Hola! ¿Cómo puedo ayudarte hoy?",
-    "placeholder": "Escribe tu mensaje..."
+    "placeholder": "Escribe tu mensaje...",
+    "loadingMessage": "Pensando...",
+    "errorMessage": "Tengo problemas para responder en este momento. Inténtalo más tarde.",
+    "fallbackModelReply": "Aquí tienes un recordatorio rápido de presupuesto mientras me reconecto.",
+    "sending": "Enviando...",
+    "send": "Enviar",
+    "language": {
+        "english": "Inglés",
+        "spanish": "Español"
+    },
+    "culture": {
+        "american": "Estadounidense",
+        "spanish": "Española",
+        "uzbek": "Uzbeca",
+        "indian": "India",
+        "haitian": "Haitiana",
+        "chinese": "China",
+        "nigerian": "Nigeriana",
+        "japanese": "Japonesa"
+    }
 }
