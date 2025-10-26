@@ -1,41 +1,48 @@
 {
+    "tagline": "Financial advice that speaks to you",
+    "switcher": { "en": "English", "es": "Español" },
     "hero": {
         "title": "Understand Your Finances With No Confusion.",
-        "subtitle": "A Simple Dashboard For Newcomers Coming To The U.S. banking system. Translate Your Finances With One Click"
+        "subtitle": "Simple, culturally aware guidance—translated for you. Log in with Plaid and see everything in one place.",
+        "alt": "Adults confidently learning about money together"
     },
-    "switcher": { "label": "Language", "en": "English", "es": "Español" },
-    "cta": { "secondary": "Learn more" },
+    "cta": {
+        "plaid": "Get started — log in with Plaid",
+        "secondary": "Learn more"
+    },
+    "trust": {
+        "plaid": "Secured by Plaid",
+        "privacyLine": "We never see or store your bank credentials"
+    },
     "home": {
         "choose_language": "Choose your language",
-        "go_dashboard": "Go to dashboard",
+        "valuesHeading": "Why FinBridge",
         "learn_heading": "Learn more about",
-        "features_heading": "Simple features",
         "cta_text": "Translating and understanding your finances doesn’t have to be hard.",
-        "cta_button": "Get started!",
         "articles": [
             {
                 "title": "Why language impacts your financial decisions",
                 "blurb": "Understanding changes behavior. See how language clarity improves outcomes.",
                 "img": "/assets/article-1.jpg",
-                "href": "https://www.consumerfinance.gov/about-us/blog/immigrants-facing-unique-financial-challenges/"
+                "href": "https://www.languageline.com/blog/empowering-unbanked-non-english-speakers"
             },
             {
                 "title": "Getting started with the U.S. banking system",
                 "blurb": "Checking, credit history, and fees—essentials explained clearly.",
                 "img": "/assets/article-2.jpg",
-                "href": "https://www.languageline.com/blog/empowering-unbanked-non-english-speakers"
+                "href": "https://www.consumerfinance.gov/consumer-tools/bank-accounts/"
             },
             {
                 "title": "Avoid common mistakes when signing documents",
                 "blurb": "Simple tips to review contracts and statements with confidence.",
                 "img": "/assets/article-3.jpg",
-                "href": "https://www.ftc.gov/consumer-advice/money-credit"
+                "href": "https://www.consumer.ftc.gov/articles/understanding-your-credit-and-loans"
             }
         ],
-        "features": [
-            { "title": "One-click translation", "desc": "Translate documents and screens fast without losing layout!" },
-            { "title": "Clear guides", "desc": "Simple explanations of banking terms and common fees." },
-            { "title": "Support in your language", "desc": "Get help and practical tips in the language you’re comfortable with." }
+        "values": [
+            { "title": "Culturally aware", "desc": "Advice that respects your background and habits." },
+            { "title": "Plain language", "desc": "Clear explanations without banking jargon." },
+            { "title": "Actionable", "desc": "Small steps you can take today." }
         ],
         "waitlist": {
             "title": "How to get started",
@@ -45,7 +52,34 @@
             "join_list": "Join the list",
             "success": "Thanks! We’ll notify you when we launch.",
             "error": "Something went wrong. Please try again."
-        },
-        "dashboard": { "title": "Dashboard", "welcome": "Welcome to the dashboard!" }
+        }
+    },
+    "how": {
+        "title": "How it works",
+        "steps": [
+            { "title": "Pick a language", "desc": "Switch between English and Spanish anytime." },
+            { "title": "Log in with Plaid", "desc": "Securely connect accounts. Your credentials never reach us." },
+            { "title": "See clear guidance", "desc": "Get translated, culturally aware advice and simple actions." }
+        ]
+    },
+    "about": {
+        "hero_blurb": "We make U.S. personal finance understandable for non-native English speakers—simple, translated guidance you can act on.",
+        "mission": "We provide plain-language, culturally aware financial guidance and tools so you can manage money with confidence.",
+        "values": [
+            { "title": "Culturally aware", "desc": "Advice that respects your background and habits." },
+            { "title": "Clear language", "desc": "Explanations without banking jargon." },
+            { "title": "Actionable steps", "desc": "Small, practical next steps you can take today." }
+        ],
+        "metrics": [
+            { "label": "Languages", "value": "2+" },
+            { "label": "Credential access", "value": "0" },
+            { "label": "Steps", "value": "3+" }
+        ],
+        "faq": [
+            { "q": "Is my data safe?", "a": "Yes — we never see or store your bank credentials. Plaid handles connections securely." },
+            { "q": "Do you provide financial products?", "a": "No — we provide guidance and translations, not banking services." },
+            { "q": "What languages do you support?", "a": "English and Spanish initially, more to come." }
+        ],
+        "cta": "Get started — log in with Plaid"
     }
 }

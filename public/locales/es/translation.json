@@ -1,41 +1,48 @@
 {
+    "tagline": "Consejos financieros en tu idioma",
+    "switcher": { "en": "English", "es": "Español" },
     "hero": {
         "title": "Entiende tus finanzas sin confusión.",
-        "subtitle": "Un panel sencillo para recién llegados al sistema bancario de EE. UU. Traduce tus finanzas con un clic"
+        "subtitle": "Orientación sencilla y culturalmente sensible—traducida para ti. Inicia sesión con Plaid y ve todo en un solo lugar.",
+        "alt": "Personas adultas aprendiendo sobre dinero con confianza"
     },
-    "switcher": { "label": "Idioma", "en": "English", "es": "Español" },
-    "cta": { "secondary": "Aprende más" },
+    "cta": {
+        "plaid": "Comienza — inicia sesión con Plaid",
+        "secondary": "Ver más"
+    },
+    "trust": {
+        "plaid": "Protegido por Plaid",
+        "privacyLine": "Nunca vemos ni guardamos tus credenciales bancarias"
+    },
     "home": {
         "choose_language": "Elige tu idioma",
-        "go_dashboard": "Ir al tablero",
+        "valuesHeading": "Por qué FinBridge",
         "learn_heading": "Aprende más sobre",
-        "features_heading": "Características simples",
         "cta_text": "Traducir y entender tus finanzas no tiene por qué ser difícil.",
-        "cta_button": "¡Comenzar!",
         "articles": [
             {
-                "title": "Por qué el idioma afecta tus decisiones financieras",
-                    "blurb": "La comprensión cambia el comportamiento. Observa cómo la claridad del lenguaje mejora los resultados.",
+                "title": "Por qué el idioma impacta tus decisiones financieras",
+                "blurb": "Entender cambia el comportamiento. Ver cómo la claridad mejora resultados.",
                 "img": "/assets/article-1.jpg",
-                "href": "https://www.consumerfinance.gov/about-us/blog/immigrants-facing-unique-financial-challenges/"
-            },
-            {
-                "title": "Cómo empezar en el sistema bancario de EE. UU.",
-                    "blurb": "Cuenta corriente, historial crediticio y tarifas: lo esencial explicado con claridad.",
-                "img": "/assets/article-2.jpg",
                 "href": "https://www.languageline.com/blog/empowering-unbanked-non-english-speakers"
             },
             {
+                "title": "Cómo empezar con la banca en EE. UU.",
+                "blurb": "Cuenta corriente, historial de crédito y comisiones—lo esencial explicado.",
+                "img": "/assets/article-2.jpg",
+                "href": "https://www.consumerfinance.gov/consumer-tools/bank-accounts/"
+            },
+            {
                 "title": "Evita errores comunes al firmar documentos",
-                    "blurb": "Consejos simples para revisar contratos y estados de cuenta con confianza.",
+                "blurb": "Consejos simples para revisar contratos y estados de cuenta.",
                 "img": "/assets/article-3.jpg",
-                "href": "https://www.ftc.gov/consumer-advice/money-credit"
+                "href": "https://www.consumer.ftc.gov/articles/understanding-your-credit-and-loans"
             }
         ],
-        "features": [
-            { "title": "Traducción con un clic", "desc": "Traduce documentos y pantallas rápidamente sin perder el formato." },
-            { "title": "Guías claras", "desc": "Explicaciones simples de términos bancarios y tarifas comunes." },
-            { "title": "Soporte en tu idioma", "desc": "Recibe ayuda y consejos prácticos en el idioma que dominas." }
+        "values": [
+            { "title": "Consciente de la cultura", "desc": "Consejos que respetan tus costumbres." },
+            { "title": "Lenguaje claro", "desc": "Explicaciones sin jerga bancaria." },
+            { "title": "Accionable", "desc": "Pasos sencillos que puedes tomar hoy." }
         ],
         "waitlist": {
             "title": "Cómo empezar",
@@ -45,7 +52,34 @@
             "join_list": "Unirme a la lista",
             "success": "¡Gracias! Te avisaremos cuando lancemos.",
             "error": "Ocurrió un error. Inténtalo de nuevo."
-        },
-        "dashboard": { "title": "Tablero", "welcome": "¡Bienvenido al tablero!" }
+        }
+    },
+    "how": {
+        "title": "Cómo funciona",
+        "steps": [
+            { "title": "Elige un idioma", "desc": "Cambia entre inglés y español cuando quieras." },
+            { "title": "Inicia sesión con Plaid", "desc": "Conecta cuentas de forma segura. Tus credenciales no nos llegan." },
+            { "title": "Recibe orientación clara", "desc": "Consejos traducidos, sensibles a tu cultura, con acciones sencillas." }
+        ]
+    },
+    "about": {
+        "hero_blurb": "Hacemos que las finanzas personales en EE. UU. sean comprensibles para personas no nativas en inglés—orientación traducida y accionable.",
+        "mission": "Brindamos orientación financiera en lenguaje claro y culturalmente sensible para que puedas administrar tu dinero con confianza.",
+        "values": [
+            { "title": "Consciente de la cultura", "desc": "Consejos que respetan tus costumbres." },
+            { "title": "Lenguaje claro", "desc": "Explicaciones sin jerga bancaria." },
+            { "title": "Pasos accionables", "desc": "Pequeños pasos prácticos que puedes tomar hoy." }
+        ],
+        "metrics": [
+            { "label": "Idiomas", "value": "2+" },
+            { "label": "Acceso a credenciales", "value": "0" },
+            { "label": "Pasos", "value": "3+" }
+        ],
+        "faq": [
+            { "q": "¿Mis datos están seguros?", "a": "Sí: nunca vemos ni almacenamos tus credenciales bancarias. Plaid gestiona las conexiones de forma segura." },
+            { "q": "¿Ofrecen productos financieros?", "a": "No: ofrecemos orientación y traducciones, no servicios bancarios." },
+            { "q": "¿Qué idiomas soportan?", "a": "Inglés y español inicialmente, más por venir." }
+        ],
+        "cta": "Comienza — inicia sesión con Plaid"
     }
 }
