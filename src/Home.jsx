@@ -19,7 +19,11 @@ export default function Home() {
         if (current !== lang) i18n.changeLanguage(lang);
     }, [lang, i18n]);
 
-    const articles = t("home.articles", { returnObjects: true }) || [];
+    const translatedArticles = t("home.articles", { returnObjects: true });
+    const articles = Array.isArray(translatedArticles) ? translatedArticles : [];
+
+    const translatedFeatures = t("home.features", { returnObjects: true });
+    const features = Array.isArray(translatedFeatures) ? translatedFeatures : [];
 
     const [waitlistState, setWaitlistState] = useState({
         loading: false,
@@ -109,7 +113,7 @@ export default function Home() {
                 <h2 className="text-2xl font-semibold text-black mb-4">{t("home.learn_heading")}</h2>
 
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {(articles || []).map((a, idx) => {
+                    {articles.map((a, idx) => {
                         const imgs = [a1, a2, a3];
                         const imgSrc = a.img || imgs[idx] || "";
                         const key = a.href || a.title || idx;
@@ -143,7 +147,7 @@ export default function Home() {
                 <h2 className="text-2xl font-semibold text-black mb-6">{t("home.features_heading")}</h2>
 
                 <div className="grid gap-6 sm:grid-cols-3">
-                    {(t("home.features", { returnObjects: true }) || []).map((f, i) => (
+                    {features.map((f, i) => (
                         <Feature key={i} title={f.title} desc={f.desc} />
                     ))}
                 </div>
