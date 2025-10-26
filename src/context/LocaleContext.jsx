@@ -16,10 +16,10 @@ import {
     flattenTemplate,
     applyTranslationsToTemplate,
 } from '../utils/translation.js';
-import enTranslation from '../../public/locales/en/translation.json';
-import enHeader from '../../public/locales/en/header.json';
-import enAbout from '../../public/locales/en/about.json';
-import enChatbot from '../../public/locales/en/chatbot.json';
+import enTranslation from '../locales/en/translation.json';
+import enHeader from '../locales/en/header.json';
+import enAbout from '../locales/en/about.json';
+import enChatbot from '../locales/en/chatbot.json';
 
 const NAMESPACE_TEMPLATES = {
     translation: enTranslation,
@@ -190,4 +190,3 @@ export function useLocale() {
     }
     return context;
 }
-
