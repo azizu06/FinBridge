@@ -17,15 +17,25 @@ const CULTURE_OPTIONS = [
     'Japanese',
 ];
 
+const SUPPORTED_LANGUAGES = new Set(['en', 'es']);
+
+const normalizeLanguage = (value) => {
+    if (!value) return undefined;
+    const base = value.split('-')[0];
+    return SUPPORTED_LANGUAGES.has(base) ? base : undefined;
+};
+
 function Chatbot() {
-    const { t } = useTranslation('chatbot');
+    const { t, i18n } = useTranslation('chatbot');
     const [messages, setMessages] = useState([
         { role: 'model', text: t('initialMessage') },
     ]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [language, setLanguage] = useState('en');
+    const [language, setLanguage] = useState(
+        normalizeLanguage(i18n.language) || 'en'
+    );
     const [culture, setCulture] = useState('American');
     const listRef = useRef(null);
 
@@ -33,6 +43,13 @@ function Chatbot() {
         if (!listRef.current) return;
         listRef.current.scrollTop = listRef.current.scrollHeight;
     }, [messages]);
+
+    useEffect(() => {
+        const current = normalizeLanguage(i18n.language);
+        if (current && current !== language) {
+            setLanguage(current);
+        }
+    }, [i18n.language, language]);
 
     const send = async () => {
         const trimmed = input.trim();
@@ -102,7 +119,13 @@ function Chatbot() {
                         <select
                             className="flex-1 border rounded px-2 py-1 text-sm"
                             value={language}
-                            onChange={(e) => setLanguage(e.target.value)}
+                            onChange={(e) => {
+                                const next = e.target.value;
+                                setLanguage(next);
+                                if (next && next !== i18n.language) {
+                                    i18n.changeLanguage(next);
+                                }
+                            }}
                         >
                             <option value="en">{t('language.english')}</option>
                             <option value="es">{t('language.spanish')}</option>
