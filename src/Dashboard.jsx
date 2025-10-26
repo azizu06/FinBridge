@@ -1,4 +1,4 @@
-import Chatbot from './chatbot.jsx';
+import Chatbot from './Chatbot.jsx';
 
 function Dashboard() {
     return (
