@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import KpiStrip from './components/KpiStrip.jsx';
 import ExpenseBarChart from './components/ExpenseBarChart.jsx';
 import TransactionTable from './components/TransactionTable.jsx';
+import ActionChips from './components/ActionChips.jsx';
 
 const API_BASE_URL =
     (import.meta.env.VITE_BACKEND_URL &&
@@ -55,17 +56,20 @@ function Chatbot() {
         }
     }, [i18n.language, language]);
 
-    const send = async () => {
+    const send = async (overrideText) => {
         const trimmed = input.trim();
-        if (!trimmed || loading) return;
+        const outbound = overrideText?.trim?.() || trimmed;
+        if (!outbound || loading) return;
 
         const pending = [
             ...messages,
-            { role: 'user', text: trimmed },
+            { role: 'user', text: outbound },
             { role: 'model', text: t('loadingMessage') },
         ];
         setMessages(pending);
-        setInput('');
+        if (!overrideText) {
+            setInput('');
+        }
         setLoading(true);
         setError('');
 
@@ -74,7 +78,7 @@ function Chatbot() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    message: trimmed,
+                    message: outbound,
                     language,
                     culture,
                 }),
@@ -112,6 +116,12 @@ function Chatbot() {
             event.preventDefault();
             send();
         }
+    };
+
+    const handleActionChip = (action) => {
+        if (!action?.label) return;
+        setInput(action.label);
+        send(action.label);
     };
 
     return (
@@ -168,6 +178,14 @@ function Chatbot() {
                         <TransactionTable table={insights.table} />
                     </div>
                 )}
+                {insights?.actions?.length ? (
+                    <div className="border-b border-gray-200 px-4 pb-1">
+                        <ActionChips
+                            actions={insights.actions}
+                            onSelect={handleActionChip}
+                        />
+                    </div>
+                ) : null}
                 <div className="flex-1 overflow-y-auto p-4 space-y-3" ref={listRef}>
                     {messages.map((message, index) => (
                         <div
