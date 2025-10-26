@@ -14,19 +14,22 @@ export default function ActionChips({ actions = [], onSelect }) {
 
     return (
         <div className="my-3 flex flex-wrap gap-2">
-            {actions.map((action, index) => (
-                <button
-                    key={`${action.label}-${index}`}
-                    type="button"
-                    onClick={() => onSelect?.(action)}
-                    className={`${buttonClasses} ${
-                        intentStyles[action.intent] || intentStyles.plan
-                    }`}
-                >
-                    {action.label}
-                </button>
-            ))}
+            {actions.map((action, index) => {
+                const style =
+                    intentStyles[action.intent] || intentStyles.plan;
+                const display =
+                    action.label || action.display || action.id || 'Action';
+                return (
+                    <button
+                        key={action.id || `${display}-${index}`}
+                        type="button"
+                        onClick={() => onSelect?.(action)}
+                        className={`${buttonClasses} ${style}`}
+                    >
+                        {display}
+                    </button>
+                );
+            })}
         </div>
     );
 }
-
