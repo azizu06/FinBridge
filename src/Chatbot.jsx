@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import KpiStrip from './components/KpiStrip.jsx';
 
 const API_BASE_URL =
     (import.meta.env.VITE_BACKEND_URL &&
@@ -37,6 +38,7 @@ function Chatbot() {
         normalizeLanguage(i18n.language) || 'en'
     );
     const [culture, setCulture] = useState('American');
+    const [insights, setInsights] = useState(null);
     const listRef = useRef(null);
 
     useEffect(() => {
@@ -88,6 +90,9 @@ function Chatbot() {
                 ...prev.slice(0, prev.length - 1),
                 { role: 'model', text: reply },
             ]);
+            if (data?.ui) {
+                setInsights(data.ui);
+            }
         } catch (err) {
             console.error('Advice fetch failed:', err);
             setError(err.message || 'Unable to reach FinBridge right now.');
@@ -146,6 +151,11 @@ function Chatbot() {
                         <p className="mt-2 text-xs text-red-600">{error}</p>
                     )}
                 </div>
+                {insights?.kpis && (
+                    <div className="px-4 border-b border-gray-200">
+                        <KpiStrip kpis={insights.kpis} />
+                    </div>
+                )}
                 <div className="flex-1 overflow-y-auto p-4 space-y-3" ref={listRef}>
                     {messages.map((message, index) => (
                         <div
