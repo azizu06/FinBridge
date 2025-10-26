@@ -1,4 +1,25 @@
 {
+    "title": "FinBridge Assistant",
+    "subtitle": "Ask for culturally aware financial guidance.",
     "initialMessage": "Hello! How can I assist you today?",
-    "placeholder": "Type your message..."
+    "placeholder": "Type your message...",
+    "loadingMessage": "Thinking...",
+    "errorMessage": "I'm having trouble answering right now. Please try again later.",
+    "fallbackModelReply": "Here is a quick budgeting reminder while I reconnect.",
+    "sending": "Sending...",
+    "send": "Send",
+    "language": {
+        "english": "English",
+        "spanish": "Spanish"
+    },
+    "culture": {
+        "american": "American",
+        "spanish": "Spanish",
+        "uzbek": "Uzbek",
+        "indian": "Indian",
+        "haitian": "Haitian",
+        "chinese": "Chinese",
+        "nigerian": "Nigerian",
+        "japanese": "Japanese"
+    }
 }
