@@ -5,6 +5,7 @@ import ExpenseBarChart from './components/ExpenseBarChart.jsx';
 import TransactionTable from './components/TransactionTable.jsx';
 import ActionChips from './components/ActionChips.jsx';
 import GeneratedImage from './components/GeneratedImage.jsx';
+import SummaryCard from './components/SummaryCard.jsx';
 
 const API_BASE_URL =
     (import.meta.env.VITE_BACKEND_URL &&
@@ -222,6 +223,11 @@ function Chatbot() {
                         <p className="mt-2 text-xs text-red-600">{error}</p>
                     )}
                 </div>
+                {insights?.summary && (
+                    <div className="border-b border-gray-200 px-4 pb-1">
+                        <SummaryCard summary={insights.summary} />
+                    </div>
+                )}
                 {insights?.kpis && (
                     <div className="border-b border-gray-200 px-4 pb-1">
                         <KpiStrip kpis={insights.kpis} />
