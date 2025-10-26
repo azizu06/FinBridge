@@ -4,6 +4,7 @@ import KpiStrip from './components/KpiStrip.jsx';
 import ExpenseBarChart from './components/ExpenseBarChart.jsx';
 import TransactionTable from './components/TransactionTable.jsx';
 import ActionChips from './components/ActionChips.jsx';
+import GeneratedImage from './components/GeneratedImage.jsx';
 
 const API_BASE_URL =
     (import.meta.env.VITE_BACKEND_URL &&
@@ -42,6 +43,11 @@ function Chatbot() {
     );
     const [culture, setCulture] = useState('American');
     const [insights, setInsights] = useState(null);
+    const [imageState, setImageState] = useState({
+        url: '',
+        loading: false,
+        error: '',
+    });
     const listRef = useRef(null);
 
     useEffect(() => {
@@ -97,8 +103,12 @@ function Chatbot() {
                 { role: 'model', text: reply },
             ]);
             if (data?.ui) {
-                setInsights(data.ui);
+            setInsights(data.ui);
+            const nextPrompt = data?.ui?.imagePrompt || '';
+            if (!nextPrompt) {
+                setImageState({ url: '', loading: false, error: '' });
             }
+        }
         } catch (err) {
             console.error('Advice fetch failed:', err);
             setError(err.message || 'Unable to reach FinBridge right now.');
@@ -123,6 +133,55 @@ function Chatbot() {
         setInput(action.label);
         send(action.label);
     };
+
+    useEffect(() => {
+        const prompt = insights?.imagePrompt;
+        if (!prompt) {
+            setImageState({ url: '', loading: false, error: '' });
+            return;
+        }
+
+        let cancelled = false;
+        setImageState({ url: '', loading: true, error: '' });
+
+        (async () => {
+            try {
+                const res = await fetch(`${API_BASE_URL}/image`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt }),
+                });
+
+                if (!res.ok) {
+                    const payload = await res.json().catch(() => ({}));
+                    throw new Error(
+                        payload?.error || `Image request failed (${res.status})`
+                    );
+                }
+
+                const data = await res.json();
+                if (!cancelled) {
+                    setImageState({
+                        url: data?.imageUrl || '',
+                        loading: false,
+                        error: '',
+                    });
+                }
+            } catch (err) {
+                if (!cancelled) {
+                    setImageState({
+                        url: '',
+                        loading: false,
+                        error: err.message || 'Unable to create illustration.',
+                    });
+                }
+            }
+        })();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [insights?.imagePrompt]);
 
     return (
         <div>
@@ -183,6 +242,16 @@ function Chatbot() {
                         <ActionChips
                             actions={insights.actions}
                             onSelect={handleActionChip}
+                        />
+                    </div>
+                ) : null}
+                {insights?.imagePrompt ? (
+                    <div className="border-b border-gray-200 px-4 pb-3">
+                        <GeneratedImage
+                            prompt={insights.imagePrompt}
+                            url={imageState.url}
+                            loading={imageState.loading}
+                            error={imageState.error}
                         />
                     </div>
                 ) : null}
