@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import KpiStrip from './components/KpiStrip.jsx';
+import ExpenseBarChart from './components/ExpenseBarChart.jsx';
 
 const API_BASE_URL =
     (import.meta.env.VITE_BACKEND_URL &&
@@ -152,8 +153,13 @@ function Chatbot() {
                     )}
                 </div>
                 {insights?.kpis && (
-                    <div className="px-4 border-b border-gray-200">
+                    <div className="border-b border-gray-200 px-4 pb-1">
                         <KpiStrip kpis={insights.kpis} />
+                    </div>
+                )}
+                {insights?.chart && (
+                    <div className="border-b border-gray-200 px-4 pb-1">
+                        <ExpenseBarChart chart={insights.chart} />
                     </div>
                 )}
                 <div className="flex-1 overflow-y-auto p-4 space-y-3" ref={listRef}>
