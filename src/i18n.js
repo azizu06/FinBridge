@@ -7,18 +7,18 @@ i18n.use(LanguageDetector).use(Backend).use(initReactI18next).init({
     debug: true,
     fallbackLng: 'en',
     supportedLngs: ['en', 'es'],
-    ns: ['translation', 'about', 'header', 'home', 'dashboard', 'chatbot'],
+    ns: ['translation', 'about', 'header', 'chatbot'],
     defaultNS: 'translation',
     backend: {
-    loadPath: '/locales/{{lng}}/{{ns}}.json'
+        loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
     detection: {
-    order: ['querystring', 'localStorage', 'navigator', 'htmlTag'],
-    caches: ['localStorage']
+        order: ['querystring', 'localStorage', 'navigator', 'htmlTag'],
+        caches: ['localStorage'],
     },
     returnObjects: true,
     interpolation: { escapeValue: false },
-    react: { useSuspense: false }
+    react: { useSuspense: false },
 });
 
 export default i18n;
