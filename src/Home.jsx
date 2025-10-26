@@ -1,23 +1,17 @@
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useLocale } from "./context/LocaleContext.jsx";
+import { LANGUAGE_OPTIONS } from "./config/options.js";
 
 export default function Home() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
+    const { language, setLanguage } = useLocale();
     const navigate = useNavigate();
 
     const heroImg = "/assets/hero-family.jpg";
     const a1 = "/assets/article-1.jpg";
     const a2 = "/assets/article-2.jpg";
     const a3 = "/assets/article-3.jpg";
-
-    const initial = i18n.language?.startsWith("es") ? "es" : "en";
-    const [lang, setLang] = useState(initial);
-
-    useEffect(() => {
-        const current = i18n.language?.startsWith("es") ? "es" : "en";
-        if (current !== lang) i18n.changeLanguage(lang);
-    }, [lang, i18n]);
 
     const translatedArticles = t("home.articles", { returnObjects: true });
     const articles = Array.isArray(translatedArticles) ? translatedArticles : [];
@@ -76,11 +70,14 @@ export default function Home() {
                                 {t("home.choose_language")}:
                                 <select
                                     className="ml-2 rounded border px-3 py-2"
-                                    value={lang}
-                                    onChange={(e) => setLang(e.target.value)}
+                                    value={language}
+                                    onChange={(e) => setLanguage(e.target.value)}
                                 >
-                                    <option value="en">{t("switcher.en")}</option>
-                                    <option value="es">{t("switcher.es")}</option>
+                                    {LANGUAGE_OPTIONS.map((option) => (
+                                        <option key={option.code} value={option.code}>
+                                            {option.label}
+                                        </option>
+                                    ))}
                                 </select>
                             </label>
 
@@ -97,7 +94,7 @@ export default function Home() {
                         <img
                             src={heroImg}
                             alt={
-                                lang === "es"
+                                language === "es"
                                     ? "Personas aprendiendo sobre finanzas juntas"
                                     : "People learning about finances together"
                             }
