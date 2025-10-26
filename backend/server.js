@@ -5,7 +5,6 @@ import adviceRoutes from "./routes/advice.js";
 import userRoutes from "./routes/user.js";
 import transactionRoutes from "./routes/transactions.js";
 import translateRoutes from "./routes/translate.js";
-import imageRoutes from "./routes/image.js";
 
 const app = express();
 app.use(cors());
@@ -15,7 +14,6 @@ app.use("/api/advice", adviceRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/translate", translateRoutes);
-app.use("/api/image", imageRoutes);
 
 app.get("/", (req, res) => {
     res.send("FinBridge backend is running.");
