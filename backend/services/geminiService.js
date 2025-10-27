@@ -2,44 +2,35 @@ import { GoogleGenAI } from "@google/genai";
 import culturalContext from "./culturalContext.js";
 import { getMockTransactions } from "../data/mockTransactions.js";
 
-const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-});
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const ai = process.env.GEMINI_API_KEY
+    ? new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
+    : null;
 
 const DEFAULT_UI = {
     summary: "Here is your financial snapshot.",
     kpis: { income: 0, expenses: 0, savings: 0, currency: "USD" },
     chart: { type: "bar", labels: [], values: [] },
+    pie: { labels: [], values: [] },
     table: {
         columns: ["Date", "Category", "Note", "Amount"],
         rows: [],
     },
     actions: [],
-    imagePrompt: "friendly budgeting illustration",
 };
 
-const formatCurrency = (value, currency, language = "en") => {
-    try {
-        return new Intl.NumberFormat(language, {
-            style: "currency",
-            currency: currency || "USD",
-            maximumFractionDigits: 2,
-        }).format(value ?? 0);
-    } catch {
-        return `${currency || "USD"} ${Number(value ?? 0).toFixed(2)}`;
-    }
-};
+const formatter = (currency, locale) =>
+    new Intl.NumberFormat(locale || "en-US", {
+        style: "currency",
+        currency: currency || "USD",
+        maximumFractionDigits: 2,
+    });
 
-const deriveMetrics = ({
-    transactions = [],
-    monthSummary = {},
-    currency = "USD",
-    language = "en",
-}) => {
-    const positive = transactions
+function deriveMetrics({ transactions = [], currency = "USD", locale = "en-US" }) {
+    const income = transactions
         .filter((txn) => txn.amount > 0)
         .reduce((acc, txn) => acc + txn.amount, 0);
-    const negative = transactions
+    const expenses = transactions
         .filter((txn) => txn.amount < 0)
         .reduce((acc, txn) => acc + txn.amount, 0);
     const expenseByCategory = transactions.reduce((acc, txn) => {
@@ -53,254 +44,216 @@ const deriveMetrics = ({
         .sort((a, b) => b[1] - a[1])
         .slice(0, 6);
 
+    const chart = {
+        type: "bar",
+        labels: sortedCategories.map(([label]) => label),
+        values: sortedCategories.map(([, value]) => Number(value.toFixed(2))),
+    };
+
+    const pie = {
+        labels: chart.labels,
+        values: chart.values,
+    };
+
+    const format = formatter(currency, locale);
     const tableRows = transactions.map((txn) => [
         txn.date ?? "",
         txn.category ?? "",
         txn.note ?? "",
-        formatCurrency(txn.amount, currency, language),
+        format.format(txn.amount ?? 0),
     ]);
 
-    const inferredIncome = monthSummary.income ?? positive;
-    const inferredExpenses = monthSummary.expenses ?? Math.abs(negative);
-    const inferredSavings =
-        monthSummary.savings ?? inferredIncome - inferredExpenses;
-
-    const summary = `You brought in ${formatCurrency(
-        inferredIncome,
-        currency,
-        language
-    )}, spent ${formatCurrency(
-        inferredExpenses,
-        currency,
-        language
-    )}, and have about ${formatCurrency(
-        inferredSavings,
-        currency,
-        language
-    )} available.`;
-
-    const actions = [];
-    if (sortedCategories[0]) {
-        actions.push({
-            label: `Review ${sortedCategories[0][0]} spending trends`,
-            intent: "save",
-        });
-    }
-    if (inferredSavings < inferredIncome * 0.1) {
-        actions.push({
-            label: "Set up an automatic weekly transfer to savings",
-            intent: "plan",
-        });
-    } else {
-        actions.push({
-            label: "Allocate part of savings to a short-term goal",
-            intent: "plan",
-        });
-    }
-    actions.push({
-        label: "Understand bank fees in your region",
-        intent: "learn",
-    });
+    const totalIncome = Number(income.toFixed(2));
+    const totalExpenses = Number(Math.abs(expenses).toFixed(2));
+    const savings = Number((totalIncome - totalExpenses).toFixed(2));
 
     return {
-        summary,
         kpis: {
-            income: inferredIncome,
-            expenses: inferredExpenses,
-            savings: inferredSavings,
+            income: totalIncome,
+            expenses: totalExpenses,
+            savings,
             currency,
         },
-        chart: {
-            type: "bar",
-            labels: sortedCategories.map(([label]) => label),
-            values: sortedCategories.map(([, value]) =>
-                Number(value.toFixed(2))
-            ),
-        },
+        chart,
+        pie,
         table: {
             columns: ["Date", "Category", "Note", "Amount"],
             rows: tableRows,
         },
-        actions,
-        imagePrompt:
-            "Friendly budgeting illustration focused on family finances and planning",
-        derivedData: {
-            categoryTotals: sortedCategories,
-            totalIncomeFromTransactions: positive,
-            totalExpensesFromTransactions: Math.abs(negative),
-        },
+        largestCategory: chart.labels[0] || null,
+        format,
     };
-};
-
-export async function getFinancialAdvice({
-    userId = "default",
-    message,
-    language,
-    culture,
-}) {
-    const userData = getMockTransactions(userId) || getMockTransactions("default") || {};
-    const cultureData = culturalContext[culture] || {};
-    const { monthSummary = {}, transactions = [], currency = "USD" } = userData;
-    const baseInsights = deriveMetrics({
-        transactions,
-        monthSummary,
-        currency,
-        language,
-    });
-
-    const prompt = `
-You are FinBridge, a multicultural and multilingual financial guide.
-Your job is to study the user’s recent financial data and message, then produce a structured “UI recipe” describing what the FinBridge dashboard should display.
-====================
-CRITICAL REQUIREMENTS
-====================
-1. Respond ONLY with valid JSON. Do not add commentary or markdown.
-2. Follow the schema exactly as written below (keys, casing, and value types).
-3. When numbers are required, return numeric values (not strings).
-4. Use the cultural context and language guidance to tailor tone, examples, and suggested actions.
-5. Ground every insight in the supplied financial data whenever possible. If data is missing, fill with thoughtful but conservative defaults and explicitly note assumptions in the summary text.
-6. Keep text concise but informative (1-2 sentences for summary, short labels for chips, etc.).
-
-====================
-JSON SCHEMA TO RETURN
-====================
-{
-  "summary": string,
-  "kpis": {
-    "income": number,
-    "expenses": number,
-    "savings": number,
-    "currency": string
-  },
-  "chart": {
-    "type": "bar",
-    "labels": string[],
-    "values": number[]
-  },
-  "table": {
-    "columns": ["Date","Category","Note","Amount"],
-    "rows": Array<[string,string,string,string]>
-  },
-  "actions": [
-    { "label": string, "intent": "save" | "learn" | "plan" }
-  ],
-  "imagePrompt": string
 }
 
-====================
-CONTEXT FOR THIS USER
-====================
-- Preferred language: ${language}
-- Cultural background: ${culture}
-- Cultural notes: ${JSON.stringify(cultureData)}
-- User question: ${message || "How can I save more money each month?"}
-- Currency: ${currency}
-- Month summary (totals, may be missing fields): ${JSON.stringify(monthSummary)}
-- Recent transactions (chronological, max 8 shown): ${JSON.stringify(
-        transactions.slice(0, 8)
-    )}
-- Expense totals by category (top 6): ${JSON.stringify(
-        baseInsights.derivedData.categoryTotals
-    )}
-- Inferred totals from transactions: ${JSON.stringify({
-        totalIncome: baseInsights.derivedData.totalIncomeFromTransactions,
-        totalExpenses: baseInsights.derivedData.totalExpensesFromTransactions,
-    })}
+function buildFallbackSummary({ kpis, largestCategory, format }, cultureData) {
+    const phrases = [
+        `You earned ${format.format(kpis.income)} and spent ${format.format(kpis.expenses)}, leaving ${format.format(kpis.savings)} to work with.`,
+        `Your latest deposits total ${format.format(kpis.income)}, with ${format.format(kpis.expenses)} going out. That leaves ${format.format(kpis.savings)} in breathing room.`,
+    ];
+    const culturalNote = cultureData?.example
+        ? ` Keep ${cultureData.example} in mind as you plan.`
+        : "";
+    const categoryNote = largestCategory
+        ? ` ${largestCategory} is currently the costliest area, so nudging that down could make a big difference.`
+        : " Consider reviewing your biggest categories to find quick wins.`";
+    return `${phrases[Math.floor(Math.random() * phrases.length)]}${categoryNote}${culturalNote}`.replace(
+        '``',
+        ''
+    );
+}
 
-====================
-AUTHORING GUIDELINES
-====================
-- SUMMARY: 1-2 sentence overview in the preferred language highlighting the key takeaway and any urgent recommendation.
-- KPIS: If monthSummary values are present, use them. Otherwise, fall back to the best estimates from transactions or reasonable placeholders.
-- CHART: Focus on the largest spending categories or any meaningful segmentation visible in the data. Ensure labels and values arrays align (same length).
-- TABLE: Show the rows in the order provided. Amount values should include currency symbol and sign if negative.
-- ACTIONS: Provide 2-4 short, actionable suggestions aligned with user goals. Pick intent tags that describe the goal (save = reduce costs, plan = forward-looking, learn = educational).
-- IMAGE PROMPT: Compose a short English phrase the design team can feed into an illustration generator. Mention cultural elements when relevant (e.g., “Haitian family budgeting around a shared meal, warm colors”).
+function buildFallbackActions({ largestCategory, format, kpis }, cultureKey) {
+    const topCategory = largestCategory || "daily expenses";
+    return [
+        {
+            label: `Trim ${topCategory} costs`,
+            followUp: `Walk me through culturally respectful ways to lower my ${topCategory} spending while keeping important traditions.`,
+            intent: "save",
+        },
+        {
+            label: "Automate savings",
+            followUp: `Design a weekly savings transfer that helps me build beyond the ${format.format(kpis.savings)} I have now, even with my current income pattern.`,
+            intent: "plan",
+        },
+        {
+            label: "Learn local perks",
+            followUp: `Explain financial programs or bank features that someone from a ${cultureKey || 'diverse'} background should explore to stretch their money further.`,
+            intent: "learn",
+        },
+    ];
+}
 
-Remember: output ONLY the JSON object that satisfies the schema above.
+async function requestGeminiInsights({
+    message,
+    metrics,
+    cultureData,
+    cultureKey,
+    languageConfig,
+    transactions,
+}) {
+    if (!ai) return null;
+
+    const prompt = `You are FinBridge, a multicultural financial advisor.
+
+Return only JSON with the following structure:
+{
+  "summary": string,
+  "actions": [
+    { "label": string, "followUp": string, "intent": "save" | "plan" | "learn" }
+  ]
+}
+
+Guidelines:
+- The summary must be 2-3 lively English sentences tailored to the user. Blend the numbers into a relatable narrative and acknowledge any cultural notes (${cultureData?.example || 'none provided'}).
+- Reference at least one numeric insight (income, expenses, or savings) and the largest expense category (${metrics.largestCategory || 'n/a'}).
+- Provide exactly three actionable chips unless you state clearly why fewer are possible. Each label should be concise; each followUp must be an English prompt we can send back for deeper instructions.
+- Cover a mix of intents (save, plan, learn) where possible.
+- Do not wrap the JSON in code fences or add commentary.
+
+User message: ${message || 'No specific question provided.'}
+Culture: ${cultureKey || 'Not specified'} (details: ${JSON.stringify(cultureData)})
+Preferred language for later localization: ${languageConfig?.geminiName || 'English'}
+Income: ${metrics.kpis.income}
+Expenses: ${metrics.kpis.expenses}
+Savings: ${metrics.kpis.savings}
+Top categories: ${JSON.stringify(metrics.chart)}
+Recent transactions: ${JSON.stringify(transactions.slice(0, 6))}
 `;
 
     try {
         const result = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
+            model: GEMINI_MODEL,
             contents: prompt,
         });
 
-        const rawText =
+        const text =
             result.output_text ||
-            result?.candidates?.[0]?.content?.parts?.[0]?.text ||
+            result?.response?.candidates?.[0]?.content?.parts
+                ?.map((part) => part.text || "")
+                .join("") ||
             "";
 
-        const jsonMatch = rawText.match(/\{[\s\S]*\}$/);
-        if (!jsonMatch) {
-            throw new Error("No JSON found in Gemini response");
-        }
-
-        const aiData = JSON.parse(jsonMatch[0]);
-
-        return {
-            summary: aiData.summary ?? baseInsights.summary ?? DEFAULT_UI.summary,
-            kpis: {
-                income:
-                    aiData?.kpis?.income ??
-                    baseInsights.kpis.income ??
-                    monthSummary.income ??
-                    0,
-                expenses:
-                    aiData?.kpis?.expenses ??
-                    baseInsights.kpis.expenses ??
-                    monthSummary.expenses ??
-                    0,
-                savings:
-                    aiData?.kpis?.savings ??
-                    baseInsights.kpis.savings ??
-                    monthSummary.savings ??
-                    0,
-                currency:
-                    aiData?.kpis?.currency ??
-                    baseInsights.kpis.currency ??
-                    monthSummary.currency ??
-                    currency ??
-                    DEFAULT_UI.kpis.currency,
-            },
-            chart:
-                (aiData.chart?.labels?.length && aiData.chart?.values?.length
-                    ? aiData.chart
-                    : null) ??
-                (baseInsights.chart.labels.length ? baseInsights.chart : null) ??
-                DEFAULT_UI.chart,
-            table:
-                (aiData.table?.columns?.length && aiData.table?.rows?.length
-                    ? aiData.table
-                    : null) ??
-                (baseInsights.table.rows.length ? baseInsights.table : null) ??
-                DEFAULT_UI.table,
-            actions: Array.isArray(aiData.actions) && aiData.actions.length
-                ? aiData.actions
-                : baseInsights.actions.length
-                ? baseInsights.actions
-                : DEFAULT_UI.actions,
-            imagePrompt:
-                aiData.imagePrompt ??
-                baseInsights.imagePrompt ??
-                DEFAULT_UI.imagePrompt,
-        };
+        const start = text.indexOf("{");
+        const end = text.lastIndexOf("}");
+        if (start === -1 || end === -1) return null;
+        const jsonText = text.slice(start, end + 1);
+        const parsed = JSON.parse(jsonText);
+        if (!parsed || typeof parsed !== "object") return null;
+        return parsed;
     } catch (error) {
-        console.error("Gemini UI recipe error:", error);
-        return {
-            summary: baseInsights.summary ?? DEFAULT_UI.summary,
-            kpis: baseInsights.kpis ?? DEFAULT_UI.kpis,
-            chart:
-                (baseInsights.chart?.labels?.length && baseInsights.chart) ||
-                DEFAULT_UI.chart,
-            table:
-                (baseInsights.table?.rows?.length && baseInsights.table) ||
-                DEFAULT_UI.table,
-            actions:
-                (baseInsights.actions?.length && baseInsights.actions) ||
-                DEFAULT_UI.actions,
-            imagePrompt:
-                baseInsights.imagePrompt ?? DEFAULT_UI.imagePrompt,
-        };
+        console.warn("Gemini insights fallback:", error?.message || error);
+        return null;
     }
+}
+
+export async function getFinancialAdvice({
+    userId = "default",
+    message = "",
+    languageCode = "en",
+    locale = "en-US",
+    culture,
+}) {
+    const userData =
+        getMockTransactions(userId) || getMockTransactions("default") || {};
+    const cultureData = culturalContext[culture] || {};
+    const transactions = userData.transactions || [];
+    const metrics = deriveMetrics({
+        transactions,
+        currency: userData.currency || "USD",
+        locale,
+    });
+
+    const fallbackSummary = buildFallbackSummary(metrics, cultureData);
+    const fallbackActions = buildFallbackActions(metrics, culture);
+
+    let summary = fallbackSummary;
+    let actions = fallbackActions;
+
+    const languageConfig = {
+        code: languageCode,
+        geminiName: languageCode,
+    };
+
+    const aiInsights = await requestGeminiInsights({
+        message,
+        metrics,
+        cultureData,
+        cultureKey: culture,
+        languageConfig,
+        transactions,
+    });
+
+    if (aiInsights?.summary) {
+        summary = aiInsights.summary.trim();
+    }
+
+    if (Array.isArray(aiInsights?.actions)) {
+        const cleaned = aiInsights.actions
+            .filter(
+                (action) =>
+                    typeof action?.label === "string" &&
+                    action.label.trim().length &&
+                    typeof action?.followUp === "string" &&
+                    action.followUp.trim().length
+            )
+            .map((action) => ({
+                label: action.label.trim(),
+                followUp: action.followUp.trim(),
+                intent: ["save", "plan", "learn"].includes(action.intent)
+                    ? action.intent
+                    : "plan",
+            }));
+        if (cleaned.length) {
+            actions = cleaned.slice(0, 3);
+        }
+    }
+
+    return {
+        summary,
+        kpis: metrics.kpis,
+        chart: metrics.chart,
+        pie: metrics.pie,
+        table: metrics.table,
+        actions,
+    };
 }
