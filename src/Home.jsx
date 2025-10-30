@@ -47,7 +47,22 @@ export default function Home() {
                         </h1>
                         <p className="mt-4 text-lg text-neutral-700 max-w-prose">{t("hero.subtitle", { defaultValue: "Simple, culturally aware guidance—translated for you." })}</p>
 
-                        <div className="mt-6 flex flex-wrap gap-3 items-center">
+                        <div className="mt-6 flex flex-wrap items-center gap-4">
+                            <label className="text-sm">
+                                {t("home.choose_language")}:
+                                <select
+                                    className="ml-2 rounded border px-3 py-2"
+                                    value={language}
+                                    onChange={(e) => setLanguage(e.target.value)}
+                                >
+                                    {LANGUAGE_OPTIONS.map((option) => (
+                                        <option key={option.code} value={option.code}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            </label>
+
                             <button
                                 className="px-5 py-2 rounded-md accent text-white font-medium transition"
                                 onClick={() => navigate("/dashboard")}
@@ -66,10 +81,18 @@ export default function Home() {
                         <p className="mt-4 text-sm text-neutral-500">{t("home.trust_line", { defaultValue: "Trusted, secure, and privacy-first." })}</p>
                     </div>
 
-                    <div>
-                        <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-                            <img src={heroImg} alt={t("hero.image_alt", { defaultValue: "People learning together" })} className="w-full h-[360px] object-cover" loading="eager" />
-                        </div>
+                    <div className="relative">
+                        <img
+                            src={heroImg}
+                            alt={
+                                language === "es"
+                                    ? "Personas aprendiendo sobre finanzas juntas"
+                                    : "People learning about finances together"
+                            }
+                            className="w-full rounded-2xl shadow-lg object-cover h-[320px] md:h-[420px]"
+                            loading="eager"
+                        />
+                        <div className="absolute -bottom-3 -right-3 h-16 w-16 rounded-full bg-yellow-400/90" />
                     </div>
                 </div>
             </section>

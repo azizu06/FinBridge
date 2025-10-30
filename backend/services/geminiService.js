@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import { GoogleGenAI } from "@google/genai";
 import culturalContext from "./culturalContext.js";
 import { getMockTransactions } from "../data/mockTransactions.js";
