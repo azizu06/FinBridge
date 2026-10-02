@@ -112,11 +112,9 @@ Frontend (root `.env`):
 |---|---|
 | `VITE_BACKEND_URL` | Base URL of the Express backend |
 
-> ⚠️ **Security follow-up:** a Firebase service-account private-key JSON is currently
-> committed under `backend/firebase/`. It should be **removed from git history and the
-> key rotated**, then loaded at runtime via `GOOGLE_APPLICATION_CREDENTIALS` /
-> `FIREBASE_SA_PATH` from an untracked location. Add `backend/firebase/*.json` and
-> `backend/.env` to `.gitignore`.
+> **Credentials:** the Firebase service-account JSON and `backend/.env` stay local and are
+> git-ignored (`backend/firebase/*.json`). Load the key at runtime through
+> `GOOGLE_APPLICATION_CREDENTIALS` / `FIREBASE_SA_PATH`.
 
 ## Technical highlights
 
